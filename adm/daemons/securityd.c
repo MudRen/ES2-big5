@@ -12,7 +12,7 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-#pragma save_binary
+// #pragma save_binary
 
 #include <login.h>
 
@@ -31,7 +31,7 @@ inherit F_DBASE;
 // wizardp() and interactive() efun.
 // The parenthesis is nessessary to prevend players naming themself "admin"
 // to hack the security system.
-// 
+//
 // 01/14/95 Annihilator - wiz_status are defined outside this daemon in the
 //                      WIZLIST file.
 
@@ -50,7 +50,7 @@ private string *wiz_levels =
 });
 
 // A valid write attempt must pass 2 checks: your uid or status must not be
-// "excluded" and must be "trusted" on that directory in order to write in 
+// "excluded" and must be "trusted" on that directory in order to write in
 // that directory. The directories containing the file is searched backward
 // from the current directory to root. And exclude is checked prior than
 // trusted.
@@ -148,7 +148,7 @@ string
 get_status(mixed ob)
 {
     string euid;
-        
+
     if( objectp(ob) ) {
 	euid = geteuid(ob);
 	if( !euid ) euid = getuid(ob);
@@ -185,7 +185,7 @@ set_status(mixed ob, string status)
     old_status = wiz_status[uid];
     if( !old_status ) old_status = "(player)";
     if( status == old_status ) return 0;
-        
+
     if( status == "(player)" ) map_delete(wiz_status, uid);
     else wiz_status[uid] = status;
 

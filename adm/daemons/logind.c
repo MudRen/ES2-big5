@@ -12,7 +12,7 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-#pragma save_binary
+// #pragma save_binary
 
 #include <ansi.h>
 #include <command.h>
@@ -29,7 +29,7 @@ string *user_race = ({
     "yenhold",
     "woochan",
     "jiaojao",
-    "rainnar", 
+    "rainnar",
     "ashura",
     "headless",
     "yaksa",
@@ -77,7 +77,7 @@ private void increment_visitor_count();
 private int check_ip(object link);
 
 private void
-create() 
+create()
 {
     seteuid(getuid());
     set("channel_id", "連線精靈");
@@ -350,7 +350,7 @@ confirm_relogin(string yn, object ob, object user)
         write("您要將另一個連線中的相同人物趕出去﹐取而代之嗎﹖(y/n)");
         input_to("confirm_relogin", ob, user);
         return;
-    }       
+    }
 
     if( yn[0]!='y' && yn[0]!='Y' ) {
         write("好吧﹐歡迎下次再來。\n");
@@ -373,7 +373,7 @@ confirm_relogin(string yn, object ob, object user)
         destruct(old_link);
     }
 
-    reconnect(ob, user);    
+    reconnect(ob, user);
 }
 
 private void
@@ -383,7 +383,7 @@ confirm_id(string yn, object ob)
         write("使用這個名字將會創造一個新的人物﹐您確定嗎(y/n)﹖");
         input_to("confirm_id", ob);
         return;
-    }       
+    }
 
     if( yn[0]!='y' && yn[0]!='Y' ) {
         write("好吧﹐那麼請重新輸入您的英文名字﹕");
@@ -489,7 +489,7 @@ get_race(string race, object ob)
     string choice;
     if( sscanf(race, "? %s", race) ) {
         write( read_file(HELP_DIR + "help/" + race) );
-        // add by ueiren ... 
+        // add by ueiren ...
         // list_user_race(ob);
         input_to("get_race", ob);
         return;
@@ -522,7 +522,7 @@ get_gender(string gender, object ob, string race)
         write("您要扮演男性(m)的角色或女性(f)的角色﹖");
         // fix 選性別錯誤造成 race 為 human bug  .... by ueiren
         // input_to("get_gender", ob, body);
-        input_to("get_gender", ob, race);           
+        input_to("get_gender", ob, race);
         return;
     }
 
@@ -530,7 +530,7 @@ get_gender(string gender, object ob, string race)
     else if( gender[0]=='f' || gender[0]=='F' )     gender = "female";
     else {
         write("對不起﹐您只能選擇男性(m)或女性(f)的角色﹕");
-        // fix 選性別錯誤造成 race 為 human bug  .... by ueiren 
+        // fix 選性別錯誤造成 race 為 human bug  .... by ueiren
         // input_to("get_gender", ob, body);
         input_to("get_gender", ob, race);
         return;
@@ -605,7 +605,7 @@ make_body(object link_ob)
 
 private int
 check_ip(object link)
-{                                                                               
+{
     string okip, cur_ip, cur_ip_num, ip_part, num_part, be_checked;
     int len, ed;
 
@@ -622,7 +622,7 @@ check_ip(object link)
 	    ip_part = cur_ip[0..len-1];
 	    num_part = cur_ip_num[0..len-1];
 	}
-	else if (sscanf(ip, "*%s", be_checked) && be_checked!="")       
+	else if (sscanf(ip, "*%s", be_checked) && be_checked!="")
 	{
 	    len = strlen(be_checked);
 	    ed = strlen(cur_ip);
@@ -635,7 +635,7 @@ check_ip(object link)
 	    ip_part = cur_ip;
 	    num_part = cur_ip_num;
 	}
-       
+
 	if (lower_case(be_checked) == lower_case(ip_part)
 	|| lower_case(be_checked) == lower_case(num_part))
 	{
@@ -719,7 +719,7 @@ NOTICE
 	write( HIW "\n有您的信！請到驛站來一趟 ...\n\n" NOR);
 	ob->delete("new_mail");
     }
- 
+
     // if detect mark: pker, set the time mark -dragoon
     if( user->query("pker") ) {
 	user->set("last_pk_time", time());
@@ -748,7 +748,7 @@ reconnect(object ob, object user, int silent)
     exec(user, ob);
 
     user->reconnect();
-    IDENT_D->query_userid((string)user->query("id"));   
+    IDENT_D->query_userid((string)user->query("id"));
 
     if( silent ) return;
 
@@ -860,7 +860,7 @@ set_wizlock(int level)
     return 1;
 }
 
-static int
+protected int
 list_user_race(object link)
 {
     string msg, race;
@@ -951,7 +951,7 @@ increment_visitor_count()
     int t, cnt;
     string s = read_file(VISITOR_COUNTER_FILE);
 
-    if( !s ) 
+    if( !s )
         s = sprintf("%d 1", time());
     else {
         sscanf(s, "%d %d", t, cnt);

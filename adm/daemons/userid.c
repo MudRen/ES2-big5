@@ -39,7 +39,7 @@ void query_userid(string str) {
 
     socket = socket_address(ob);
     //printf("Address: %s\n", socket);
-    
+
     sscanf(socket, "%s %d", address, port);
     //printf("telnet %s 113\n", address);
      //printf("Ident syntax: %d, 4000\n", port);
@@ -50,7 +50,7 @@ void query_userid(string str) {
     err = socket_connect(fd, address+" 113","receive_data", "write_data");
     //printf("error: %d", err);
     if(err<0) {
-        socket_close(fd);                                             
+        socket_close(fd);
         return;
     }
     call_out("timeout",60,fd);
@@ -58,11 +58,11 @@ void query_userid(string str) {
     return;
 }
 
-/* 
+/*
 void test_socket(string str)
 {
     int fd;
-    
+
     fd = socket_create(STREAM, "socket_shutdown");
     printf("fd: %d\n",fd);
     if(fd<0) return;
@@ -70,20 +70,20 @@ void test_socket(string str)
         socket_close(fd);
         write("not connected\n",);
         return;
-    } 
+    }
 }
 */
 
 void write_data(int fd)
 {
-    int t;
-    t = socket_write(fd, requests[fd][1]+", 4000\n");
-    if(t<0) {
-        socket_close(fd);
-        requests[fd][0]->set("userid","no identd");
-        map_delete(requests, fd);
-        return;
-    }
+    // int t;
+    // t = socket_write(fd, requests[fd][1]+", 4000\n");
+    // if(t<0) {
+    //     socket_close(fd);
+    //     requests[fd][0]->set("userid","no identd");
+    //     map_delete(requests, fd);
+    //     return;
+    // }
 }
 
 void receive_data(int fd, string str)
@@ -122,7 +122,7 @@ mapping query_requests() { return requests; }
 
 void timeout(int fd)
 {
-    if(requests[fd]) { 
+    if(requests[fd]) {
     if(!requests[fd][0]) {
         socket_close(fd);
         map_delete(requests, fd);

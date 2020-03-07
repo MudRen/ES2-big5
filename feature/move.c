@@ -12,13 +12,13 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-#pragma optimize
+// #pragma optimize
 
 #include <dbase.h>
 #include <type.h>
 
-static int weight = 0;
-static int encumb = 0, max_encumb = 0, max_inventory = -1;
+nosave int weight = 0;
+nosave int encumb = 0, max_encumb = 0, max_inventory = -1;
 
 nomask int weight() { return weight + encumb; }
 nomask int query_weight() { return weight; }
@@ -59,7 +59,7 @@ receive_object(object ob, int from_inventory)
 
     return 1;
 }
- 
+
 // move()
 //
 // This function actually moves this_object into another object, after

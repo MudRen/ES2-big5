@@ -15,7 +15,7 @@
 #include <dbase.h>
 #include <name.h>
 
-static mapping stock;
+nosave mapping stock;
 
 private void
 reset()

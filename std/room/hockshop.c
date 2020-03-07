@@ -14,7 +14,7 @@
 
 inherit ROOM;
 
-static object storage;
+nosave object storage;
 
 void remove()
 {
@@ -88,7 +88,7 @@ int do_value(string arg)
         printf("%s價值%s。\n但是這種死人身上的倒楣東西當鋪很不願意收。\n"
             "典當(pawn)或賣斷(sell)只能得到%s。\n",
             ob->query("name"), value_string(value), value_string(value / 100 ));
-    else 
+    else
         printf("%s價值%s。\n如果你要典當(pawn)﹐可以拿到%s及一張當票。\n如果賣斷(sell)﹐可以拿到%s。\n",
             ob->query("name"), value_string(value),
             value_string(value * 60 / 100), value_string(value * 80 / 100));
@@ -186,7 +186,7 @@ int do_sell(string arg)
 
     if( arg=="all" ) {
         object *inv;
-        
+
         inv = all_inventory(this_player());
         foreach(ob in inv) {
             if(!ob) continue;

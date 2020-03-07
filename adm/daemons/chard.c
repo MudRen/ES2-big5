@@ -12,7 +12,7 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-#pragma save_binary
+// #pragma save_binary
 
 #include <login.h>
 #include <statistic.h>
@@ -27,7 +27,7 @@ private void create() { seteuid(getuid()); }
 // called). The major task of this function is to keep consistency of
 // user data and NPCs. Because the game system may change with development
 // of mudlib, there might be minor or major changes in creating character
-// objects. Also, this function serves as default creation function of 
+// objects. Also, this function serves as default creation function of
 // NPCs that saves wizards' work on initializing NPCs.
 
 /*  setup()
@@ -145,7 +145,7 @@ make_corpse(object victim, object killer)
     corpse->set_name( victim->name(1) + "的屍體",
 	"corpse of " + capitalize(victim->query("id")), "corpse" );
     corpse->set("long", victim->long()
-	+ "然而﹐" + gender_pronoun(victim->query("gender")) 
+	+ "然而﹐" + gender_pronoun(victim->query("gender"))
 	+ "已經死了﹐只剩下一具屍體靜靜地躺在這裡。\n");
     corpse->set("age", victim->query("age"));
     corpse->set("gender", victim->query("gender"));
@@ -163,7 +163,7 @@ make_corpse(object victim, object killer)
     // Transfer inventory into corpse.
     foreach(inv in all_inventory(victim))
 	inv->move(corpse);
-        
+
     if( !killer ) killer = victim->last_damage_giver();
 
     // Handle the killer.
@@ -175,7 +175,7 @@ make_corpse(object victim, object killer)
 		victim->query_level() * victim->query_level() * 10);
 	    // 如果被害人素行良好, 殺人者折損自身聲望及武林聲望, 殺人者
 	    // 若是小偷, 則略增黑道聲望 -dragoon
-	    negative_fame = victim->query_score("reputation") + 
+	    negative_fame = victim->query_score("reputation") +
 		victim->query_level() * victim->query_level() -
 		victim->query_score("mortal sin") / 15;
 
@@ -184,7 +184,7 @@ make_corpse(object victim, object killer)
 		killer_fame = killer->query_score("martial fame");
 		k = random(negative_fame);
 		// 扣聲望
-	        if( killer_rep > k ) 
+	        if( killer_rep > k )
 		    killer->gain_score("reputation", -k);
 		else killer->gain_score("reputation", -killer_rep);
 		// 扣武林聲望
@@ -209,7 +209,7 @@ make_corpse(object victim, object killer)
 	}
 	// set marks on PKer -dragoon
 	if( userp(killer) && userp(victim) ) {
-            // 若是此人曾殺過人, 且時間少於某段時間, 則記錄上加一筆, 否則, 
+            // 若是此人曾殺過人, 且時間少於某段時間, 則記錄上加一筆, 否則,
 	    // 便重設時間記錄
 	    // 加上設限: 必需lv>1才會增加, 以防神風特攻隊以另類方式 pk
             if( killer->query("last_pk_time")
@@ -221,7 +221,7 @@ make_corpse(object victim, object killer)
             killer->set("last_pk_time", time());
 	    // 殺人數高於3開始有機會出現捕頭, 另外加上治安指數
 	    // 目前設定: 治安普通, 命案發生有三成機率出現捕頭
-	    if( killer->query("pk_record") > 3 + random(12) 
+	    if( killer->query("pk_record") > 3 + random(12)
 	    && random(10) > 6 ) {
 		if( killer->query("pk_record") > 15 + random(10) ) {
 		    write("兩個捕頭遠遠的聽見慘叫，迅速的奔了過來!!\n");
@@ -230,7 +230,7 @@ make_corpse(object victim, object killer)
 		else write("捕頭遠遠的聽見慘叫，迅速的奔了過來!!\n");
 		police2 = new("/d/domain/npc/police");
 		police2->move(environment(killer));
-	    }		
+	    }
 	}
 
 	// Register vendetta marks if any.
@@ -248,7 +248,7 @@ make_corpse(object victim, object killer)
 
 	// Finally, let class daemon check this kill.
 	CLASS_D(killer->query_class())->kill_check(killer, victim, corpse);
-    }        
+    }
 
     return corpse;
 }

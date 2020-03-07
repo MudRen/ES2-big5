@@ -40,7 +40,7 @@ update_condition()
  * 影響。原則上這個函數應該只有人物自己才會需要呼叫，所以宣告成 static。
  */
 
-static nomask void
+protected nomask void
 restore_condition()
 {
     string cnd;
@@ -94,5 +94,3 @@ delete_condition(string cnd)
     CONDITION_D(cnd)->condition_unapply(this_object(), cnd);
     map_delete(conditions, cnd);
 }
-
- 

@@ -13,7 +13,7 @@
 */
 
 #include <ansi.h>
-#include <net/dns.h>
+// #include <net/dns.h>
 
 inherit F_CLEAN_UP;
 
@@ -44,7 +44,7 @@ mixed main(object me, string arg, int remote)
 	all = filter(users(), (: objectp(environment($1)) && !wizardp($1) :));
 
     i = sizeof(all);
-    
+
     if( !arg || arg=="" ) {
 	center_lv = me->query_level();
         while( i-- ) {
@@ -165,7 +165,7 @@ mixed main(object me, string arg, int remote)
 	default :
 	    if( objectp(me) && wizardp(me)
 	    &&  arg[0]=='@' ) {
-		RWHO_Q->send_rwho_q(arg[1..sizeof(arg)], me, 0);
+		// RWHO_Q->send_rwho_q(arg[1..sizeof(arg)], me, 0);
 		write("網路訊息已送往 " + arg[1..sizeof(arg)] + " 請稍候。\n");
 		return 1;
 	    }
@@ -181,7 +181,7 @@ mixed main(object me, string arg, int remote)
 
     if( me && me->query_stat_current("sen") > 5 )
         me->consume_stat("sen", 5);
-    
+
     if( remote ) return msg;
 
     me->start_more(msg);

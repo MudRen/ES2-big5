@@ -74,7 +74,7 @@ crash(string error, object command_giver, object current_object)
         log_file("static/CRASHES", sprintf("  this_object: %O\n", current_object));
 }
 
-static string *
+protected string *
 read_config(string file)
 {
     string str;
@@ -85,13 +85,13 @@ read_config(string file)
     return filter( explode(str, "\n"), (: strlen($1) && ($1[0] != '#') :));
 }
 
-static string *
+protected string *
 epilog(int load_empty)
 {
     return read_config(CONFIG_DIR + "preload");
 }
 
-static void
+protected void
 preload(string file)
 {
     string err;
@@ -113,9 +113,9 @@ private int
 retrieve_ed_setup(object who)
 {
     string val;
-  
+
     val = read_file(user_path(getuid(who)) + ".edrc");
-    return stringp(val) ? (int)restore_variable(val) : 0; 
+    return stringp(val) ? (int)restore_variable(val) : 0;
 }
 
 private void
@@ -126,31 +126,31 @@ destruct_env_of(object ob)
     ob->move(VOID_OB);
 }
 
-static string
+protected string
 make_path_absolute(string file)
 {
     return resolve_path((string)this_player()->query("cwd"), file);
 }
 
-static string
+protected string
 get_save_file_name(string fname)
 {
     return fname + "." + time();
 }
 
-static string
+protected string
 get_root_uid()
 {
    return ROOT_UID;
 }
 
-static string
+protected string
 get_bb_uid()
 {
    return BACKBONE_UID;
 }
 
-static string
+protected string
 creator_file(string str)
 {
     object ob;
@@ -212,23 +212,23 @@ error_handler( mapping error, int caught )
     return report;
 }
 
-static void
+protected void
 log_error(string file, string message)
 {
     string name, home;
-   
+
     if( find_object(SIMUL_EFUN_OB) )
         name = file_owner(file);
 
     if (name) home = user_path(name);
     else home = LOG_DIR;
 
-    if(this_player(1)) efun::write("½sÄ¶®É¬q¿ù»~¡R" + message );
-    
+    // if(this_player(1)) efun::write("½sÄ¶®É¬q¿ù»~¡R" + message );
+
     efun::write_file(home + "log", sprintf("[%s]%s", ctime(time())[4..18], message));
 }
 
-static int
+protected int
 valid_override( string file, string name )
 {
     if (file == SIMUL_EFUN_OB || file==MASTER_OB) return 1;
@@ -245,19 +245,19 @@ valid_override( string file, string name )
     return 1;
 }
 
-static int
+protected int
 valid_seteuid( object ob, string str )
 {
     return (int)SECURITY_D->valid_seteuid( ob, str );
 }
 
-static int
+protected int
 valid_socket( object eff_user, string fun, mixed *info )
 {
     return 1;
 }
 
-static int
+protected int
 valid_object( object ob )
 {
     return (!clonep(ob)) || inherits(F_MOVE, ob);
@@ -266,12 +266,12 @@ valid_object( object ob )
 // valid_save_binary: controls whether an object can save a binary
 //   image of itself to the specified "save binaries directory"
 //   (see config file)
-static int
+protected int
 valid_save_binary( string filename ) { return 1; }
 
 // valid_write: write privileges; called with the file name, the object
-//   initiating the call, and the function by which they called it. 
-static int
+//   initiating the call, and the function by which they called it.
+protected int
 valid_write( string file, mixed user, string func )
 {
     object ob;
@@ -284,7 +284,7 @@ valid_write( string file, mixed user, string func )
 }
 
 // valid_read: read privileges; called exactly the same as valid_write()
-static int
+protected int
 valid_read( string file, mixed user, string func )
 {
     object ob;
@@ -296,7 +296,7 @@ valid_read( string file, mixed user, string func )
     return 1;
 }
 
-static int
+protected int
 valid_bind(object binder, object old_owner, object new_owner)
 {
     // Root can bind anything to anything

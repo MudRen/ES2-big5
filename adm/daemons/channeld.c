@@ -16,11 +16,11 @@
 #include <intermud.h>
 //#include <net/dns.h>
 
-#pragma save_binary
+// #pragma save_binary
 
 inherit F_CLEAN_UP;
 #define CHANCE 20
- 
+
 mapping channels = ([
     "sys":  ([	"msg_speak": HIB "【系統】%s﹕%s\n" NOR,
 		"wiz_only": 1,
@@ -59,34 +59,34 @@ mapping channels = ([
 		"msg_emote": WHT "【心笙樂府】*%s" NOR
 		]),
 ]);
- 
+
 private void create() { seteuid(getuid()); }
- 
+
 varargs int
 do_channel(object me, string verb, string arg, int emote)
 {
     object *ob;
     string *tuned_ch, who, origin_verb, origin_msg;
- 
+
     // set for log channel msg
     origin_verb = verb;
     origin_msg = arg;
 
     if( verb== "" ) return 0;
- 
+
     // Check if this is a channel emote.
     if( verb[<1] == '*' ) {
         emote = 1;
         verb = verb[0..<2];
     }
- 
+
     if( !mapp(channels) || undefinedp(channels[verb]) )
         return 0;
- 
+
     if( userp(me) && me->link() ) {
         if(channels[verb]["wiz_only"] && !wizardp(me) )
             return 0;
- 
+
         if (me->query("no_chat") == 1)
         return notify_fail("你由於行為不良, 被禁止使用公用頻道。\n");
 
@@ -100,12 +100,12 @@ do_channel(object me, string verb, string arg, int emote)
             me->link()->set("channels", ({ verb }) );
         else if( member_array(verb, tuned_ch)==-1 )
             me->link()->set("channels", tuned_ch + ({ verb }) );
- 
+
         // Support of channel emote
         if( emote && !channels[verb]["intermud_emote"]) {
             string vb, emote_arg;
- 
-            if (!arg) 
+
+            if (!arg)
                 arg = (string)me->name(1)+"看起來表情豐富。\n";
             else {
                 if( sscanf(arg, "%s %s", vb, emote_arg)!= 2 ) {
@@ -128,7 +128,7 @@ do_channel(object me, string verb, string arg, int emote)
     log_file("channel/CHANNELS", sprintf("%s use %s: %s\n",
         me->query("id"), origin_verb, origin_msg) );
     }
- 
+
     // Make the identity of speaker.
 
     if( channels[verb]["anonymous"]
@@ -141,10 +141,10 @@ do_channel(object me, string verb, string arg, int emote)
     }
 
     // Ok, now send the message to those people listening us.
- 
+
     ob = filter_array( users(), "filter_listener", this_object(), channels[verb] );
     if( !arg ) arg = "...";
- 
+
     if( emote ) {
         string msg;
 
@@ -152,7 +152,7 @@ do_channel(object me, string verb, string arg, int emote)
             return notify_fail("這個頻道不能 emote。\n");
         // Support of old behavier of intermud emote.
         if( channels[verb]["intermud_emote"] ) arg = who + " " + arg;
- 
+
         msg = sprintf( channels[verb]["msg_emote"], arg );
 	if( strsrch(msg, '\n')==-1 ) msg += "\n";
         message( "channel:" + verb, msg, ob );
@@ -166,30 +166,30 @@ do_channel(object me, string verb, string arg, int emote)
             log_file("channel/" + verb, msg);
 #endif
     }
-     
+
     if( arrayp(channels[verb]["extra_listener"]) ) {
         channels[verb]["extra_listener"] -= ({ 0 });
         if( sizeof(channels[verb]["extra_listener"]) )
             channels[verb]["extra_listener"]->relay_channel(me, verb, arg);
     }
-    
+
     if( !undefinedp(channels[verb]["intermud"])
     &&	me != load_object(channels[verb]["intermud"]) )
         channels[verb]["intermud"]->send(
 	    channels[verb]["channel"], me->query("id"), me->name(1), arg, emote,
 	    channels[verb]["filter"] );
- 
-    if( userp(me) ) 
+
+    if( userp(me) )
         me->set_temp("last_channel_msg", verb + "\n" + arg);
- 
+
     return 1;
 }
- 
+
 int filter_listener(object ppl, mapping ch)
 {
     // Don't bother those in the login limbo.
     if( !environment(ppl) ) return 0;
-    
+
     if( ch["wiz_only"] ) return wizardp(ppl);
     return 1;
 }
@@ -199,11 +199,11 @@ int filter_listener(object ppl, mapping ch)
 // This function allows non-user objects like npcs, daemons, etc to sign-up
 // a channel for listenin. The way non-user objects listening channels is
 // via a mudlib apply function relay_channel().
- 
+
 void register_relay_channel(string channel)
 {
     object ob;
- 
+
     ob = previous_object();
     if( undefinedp(channels[channel]) || !ob) return;
     if( arrayp(channels[channel]["extra_listener"]) ) {

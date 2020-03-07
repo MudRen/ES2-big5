@@ -12,10 +12,10 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-// MudOS v21.6 #pragma optimize's jump threading has bug! (line 200)
-//#pragma optimize
+// MudOS v21.6 // #pragma optimize's jump threading has bug! (line 200)
+//// #pragma optimize
 
-#pragma save_binary
+// #pragma save_binary
 
 #include <ansi.h>
 #include <combat.h>
@@ -106,7 +106,7 @@ string damage_msg(int damage, string type)
         else if( damage < 20 ) str = "結果造成一處嚴重";
         else if( damage < 30 ) str = "結果造成頗為嚴重的";
         else if( damage < 40 ) str = "結果造成相當嚴重的";
-        else if( damage < 60 ) str = "結果造成十分嚴重的";
+        else if( damage < 60 ) str = "結果造成十分嚴重的";
         else if( damage < 80 ) str = "結果造成極其嚴重的";
         else str =  "結果造成非常可怕的嚴重";
         return str + type + "﹗\n";
@@ -136,7 +136,7 @@ string status_msg(int ratio)
     if( ratio > 90 ) return HIG "( $N看起來可能有些累了，出招開始慢了下來。 )\n" NOR;
     if( ratio > 80 ) return HIY "( $N動作似乎開始有點不太靈光，但是仍然有條不紊。 )\n" NOR;
     if( ratio > 60 ) return HIY "( $N氣喘噓噓，看起來狀況並不太好。 )\n" NOR;
-    if( ratio > 40 ) return HIY "( $N似乎十分疲憊，看來體力的消耗相當嚴重。 )\n" NOR;
+    if( ratio > 40 ) return HIY "( $N似乎十分疲憊，看來體力的消耗相當嚴重。 )\n" NOR;
     if( ratio > 30 ) return HIY "( $N已經一副頭重腳輕的模樣，正在勉力支撐著不倒下去。 )\n" NOR;
     if( ratio > 20 ) return HIR "( $N看起來已經力不從心了。 )\n" NOR;
     if( ratio > 10 ) return HIR "( $N搖頭晃腦、歪歪斜斜地站都站不穩，眼看就要倒在地上。 )\n" NOR;
@@ -146,7 +146,7 @@ string status_msg(int ratio)
 varargs void report_status(object ob, int effective)
 {
     if( !ob->query_stat_maximum("kee") ) return;
-    if( effective ) 
+    if( effective )
         message_vision( eff_status_msg(
             (int)ob->query_stat_effective("kee") * 100 / (int)ob->query_stat_maximum("kee") ), ob);
     else
@@ -169,12 +169,12 @@ fight(object me, object victim, string skill, mapping action, object weapon)
     // 若在非戰區, 且戰鬥雙方都沒被arrest, 停止戰鬥 -Dragoon
     // 拿掉userp(me) check, mob也不準在非戰區出手攻擊 -dragoon
     if( environment(me)->query("no_fight") ) {
-	if( !victim->query("unprotect_mark") 
+	if( !victim->query("unprotect_mark")
 	&& !me->query("unprotect_mark") ) return 0;
     }
 
     // 若戰鬥到一半斷線, 停止雙方戰鬥 -Dragoon
-    if( ( userp(me) && !interactive(me) ) 
+    if( ( userp(me) && !interactive(me) )
     || ( userp(victim) && !interactive(victim) ) ) return 0;
 
     me->set_combat_message(action["action"]);
@@ -187,7 +187,7 @@ fight(object me, object victim, string skill, mapping action, object weapon)
     /* 內力對戰鬥的影響:
      *
      * 力道增加: 技能 * 氣 * (功力百分比 + 招式係數)% * 4
-     *           => 技能 100, 氣 1000, 十成功力, 無招式, 會增加 400Kg 力道
+     *           => 技能 100, 氣 1000, 十成功力, 無招式, 會增加 400Kg 力道
      * 需要氣: 所增加力道 / 500;
      * 消耗精: 隨機(1 到 1 + 所增加力道 / 30000)
      */
@@ -198,7 +198,7 @@ fight(object me, object victim, string skill, mapping action, object weapon)
 
         if( !(ratio = me->query("force_ratio")) ) ratio = 75;
 
-        force_bonus = me->query_skill("force") * me->query_stat("kee") 
+        force_bonus = me->query_skill("force") * me->query_stat("kee")
                 * (ratio + action["force"]) / 25;
         kee_required = force_bonus / 500;
 
@@ -327,7 +327,7 @@ fight(object me, object victim, string skill, mapping action, object weapon)
         /* 對手是非生物，攻擊者能力需小於 80 才有機會得到經驗 */
         // ability > 80 的限制有點過嚴, 同狀況下force exp卻無此限制
         // 略為放寬這裏的設限, 反正stake已經限制了頂多能練到那一級
-        // -Dragoon 
+        // -Dragoon
         return random(500) > ability ? damage : 0;
     }
 }
@@ -409,7 +409,7 @@ void start_aggressive(object me, object obj)
 
     /* 讓阿修羅族遇到其他玩家時，只打攻勢比自己強的 */
 //  好像設反了?? 先取消 -dragoon
-//    if( userp(me) && userp(obj) 
+//    if( userp(me) && userp(obj)
 //    && obj->query_ability("intimidate") > me->query_ability("intimidate") )
 //        return;
 
@@ -438,4 +438,3 @@ void announce(object ob, string event)
         break;
     }
 }
-

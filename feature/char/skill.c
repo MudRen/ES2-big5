@@ -150,7 +150,7 @@ int query_learn(string skill)
 //
 // This mapping registers every improve_skill from last reset_skill_gain()
 // till now.
-static mapping skill_gain = ([]);
+nosave mapping skill_gain = ([]);
 
 mapping query_skill_gain() { return skill_gain; }
 void reset_skill_gain() { skill_gain = ([]); }

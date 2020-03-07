@@ -63,7 +63,7 @@ int query_score(string course)
     return query("score/" + course);
 }
 
-static mapping score_gain = ([]);
+nosave mapping score_gain = ([]);
 mapping query_score_gain() { return score_gain; }
 void reset_score_gain() { score_gain = ([]); }
 
@@ -113,4 +113,3 @@ void set_target_score(string course, int xp)
     if( xp < (int)query("target_score/" + course) ) return;
     set("target_score/" + course, xp);
 }
-

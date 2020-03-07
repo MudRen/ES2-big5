@@ -15,7 +15,7 @@
 #include <dbase.h>
 #include <function.h>
 
-static mixed busy, intr;
+nosave mixed busy, intr;
 
 varargs void
 start_busy(mixed new_busy, mixed new_intr)
@@ -43,7 +43,7 @@ is_busy()
 
 // This is called by heart_beat() instead of attack() when a ppl is busy
 // doing something else.
-static void
+protected void
 continue_action()
 {
     if( intp(busy) && (busy > 0) ) {

@@ -19,7 +19,7 @@
 #include <statistic.h>
 #include <combat.h>
 
-static string combat_message = "";
+nosave string combat_message = "";
 
 void set_combat_message(string s) { combat_message = s; }
 void add_combat_message(string s) { combat_message += s; }
@@ -30,7 +30,7 @@ varargs int query_attr(string,int);
 // query_strength()
 //
 // This function returns the strength an character can bestow on specific
-// application in the UNIT OF GRAM. Currently the default definition 
+// application in the UNIT OF GRAM. Currently the default definition
 // implements a convert based on human attributes. Human strength ranged
 // from 13 to 18, yielding the strength range from 16.9 kg to 32.4 kg.
 
@@ -270,7 +270,7 @@ int inflict_damage(int strength, object victim)
 // resist_damage()
 //
 // This function returns the non-initiative defense against all physical
-// damage to this object. 
+// damage to this object.
 
 int resist_damage(int damage, object from_ob)
 {
@@ -359,7 +359,7 @@ receive_damage(int damage, object from, object attacker)
     //    code to check, so let give it a chance in next turn.)
     // 3. This character is exhausting in next turn.
     //
-    if(	!kill_mode 
+    if(	!kill_mode
     &&	!is_killing()
     &&	mapp(flag = query_exhausted())
     &&	(flag["gin"] || flag["kee"] || flag["sen"] || flag["HP"]) )
@@ -382,4 +382,3 @@ receive_damage(int damage, object from, object attacker)
 
     return damage;
 }
-

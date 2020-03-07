@@ -22,12 +22,12 @@
 inherit CHARACTER;
 inherit F_CLEAN_UP;     // Only to clean up master copy of NPCs.
 
-static mixed next_chat;
-static int last_scheduled_time_tag = 0;
+nosave mixed next_chat;
+nosave int last_scheduled_time_tag = 0;
 
 int chat();
 
-static void
+protected void
 heart_beat()
 {
     mapping schedule;
@@ -250,11 +250,11 @@ void do_heal()
 varargs void
 improve_skill(string skill, int amount)
 {
-    /* 重定義成不做任何事，以節省系統資源 */
+    /* ??定義成不做任?顙ヾA?H節?晲t統資源 */
 }
 
 void
 gain_score(string term, int amount)
 {
-    /* 重定義成不做任何事，以節省系統資源 */
+    /* ??定義成不做任?顙ヾA?H節?晲t統資源 */
 }

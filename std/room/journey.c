@@ -2,7 +2,7 @@
 
 inherit ROOM;
 
-static int on_journey = 0;
+nosave int on_journey = 0;
 
 private void confirm_journey(string arg);
 

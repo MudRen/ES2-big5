@@ -12,7 +12,7 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-#pragma save_binary
+// #pragma save_binary
 
 #include <ansi.h>
 
@@ -65,10 +65,10 @@ int main(object me, string arg)
         } else {
             int old_amount;
             old_amount = obj->query_amount();
-            
+
             obj2 = new(base_name(obj));
             obj2->move(env);    // for container
-            obj2->set_amount( amount );            
+            obj2->set_amount( amount );
             obj->set_amount( old_amount - amount );
             // Counting precise amount costs more time.
             if( me->is_fighting() ) me->start_busy(3);
@@ -99,7 +99,7 @@ int main(object me, string arg)
 
     return do_get(me, obj);
 }
-    
+
 int do_get(object me, object obj)
 {
     object from_ob, *enemy, *guard;
@@ -109,7 +109,7 @@ int do_get(object me, object obj)
     if( !obj ) return 0;
     from_ob = environment(obj);
 
-    if( obj->is_character() ) 
+    if( obj->is_character() )
 	return notify_fail("不行!\n");
 /*
     {
@@ -130,7 +130,7 @@ int do_get(object me, object obj)
 	    && ($1!=$2)
 	    :), me);
 	if( sizeof(guard) )
-	    return notify_fail( guard[0]->name() 
+	    return notify_fail( guard[0]->name()
 		+ "正守在" + obj->name() + "一旁﹐防止任何人拿走。\n");
     }
 
@@ -146,7 +146,7 @@ int do_get(object me, object obj)
     if( obj->is_character() )
 	message_vision( "$N將$n扶了起來揹在背上。\n", me, obj );
     else
-	message_vision( sprintf("$N%s一%s$n。\n", 
+	message_vision( sprintf("$N%s一%s$n。\n",
 	    from_ob==environment(me)? "撿起":
 		(from_ob->is_character() ?
 		"從" + from_ob->name() + "身上" + (equipped? "除下" : "搜出"):
@@ -159,11 +159,10 @@ int help(object me)
 {
     write(@HELP
 指令格式 : get <物品名稱> [from <容器名>]
- 
+
 這個指令可以讓你撿起地上或容器內的某樣物品。
- 
+
 HELP
     );
     return 1;
 }
- 

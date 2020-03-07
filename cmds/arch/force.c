@@ -16,7 +16,7 @@
 
 inherit F_CLEAN_UP;
 
-static void create()
+protected void create()
 {
     seteuid(getuid());
 }
@@ -44,7 +44,7 @@ main(object me, string arg)
         return notify_fail("你沒有強制" + ob->name() + "執行指令的權力。\n");
 
     if( userp(ob) )
-        log_file("FORCE_PLAYER", sprintf("[%s] %s forces %s to %s\n",  
+        log_file("FORCE_PLAYER", sprintf("[%s] %s forces %s to %s\n",
             ctime(time()), geteuid(me), geteuid(ob), cmd));
 
     return ob->force_me(cmd);

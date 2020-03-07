@@ -20,18 +20,18 @@
 
 // variables
 
-static int regenerating = 1;
+nosave int regenerating = 1;
 
 mapping st_maximum = ([]);
 mapping st_effective = ([]);
 mapping st_current = ([]);
 mapping st_notify = ([]);
 
-static mapping st_regenerator;
-static object last_from_ob;
-static mapping f_exhausted = ([]);
-static mapping f_destroyed = ([]);
-static mapping f_notified = ([]);
+nosave mapping st_regenerator;
+nosave object last_from_ob;
+nosave mapping f_exhausted = ([]);
+nosave mapping f_destroyed = ([]);
+nosave mapping f_notified = ([]);
 
 // implementations
 
@@ -478,4 +478,3 @@ wasting_regenerator(object me, string stat, int max, int eff, int cur)
 
     return me->consume_stat(stat, 1 + (me->is_fighting() ? 2 : 0), me);
 }
-

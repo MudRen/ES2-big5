@@ -2,7 +2,7 @@
 
 inherit ITEM;
 
-static int volume;
+nosave int volume;
 
 int query_volume() { return volume; }
 
@@ -14,12 +14,12 @@ void set_volume(int v)
 	else this_object()->set_weight( to_int(v * query("density")) );
 }
 
-void add_volume(int v) 
-{ 
-	if( (volume+v) < 0)  // fix by tears 
+void add_volume(int v)
+{
+	if( (volume+v) < 0)  // fix by tears
 	   set_volume(0);
-	else 
-	   set_volume(volume+v); 
+	else
+	   set_volume(volume+v);
 }
 
 string short(int raw)
@@ -95,4 +95,3 @@ void setup()
 	if( !volume ) set_volume(1);
 	set("value", (: render_value :));
 }
-

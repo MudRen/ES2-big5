@@ -12,7 +12,7 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-#pragma save_binary
+// #pragma save_binary
 
 #include <ansi.h>
 
@@ -81,9 +81,9 @@ do_emote(object me, string verb, string arg, int channel_emote)
             target = find_player(arg);
             if( !objectp(target) || !me->visible(target) || !target->id(arg)) return 0;
         }
-        
+
         if( !target->is_character() )
-            return notify_fail("你要對誰做這個動作﹖\n"); 
+            return notify_fail("你要對誰做這個動作﹖\n");
 
         target_gender = target->query("gender");
         if( target==me ) {

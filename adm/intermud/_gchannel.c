@@ -17,8 +17,8 @@
 
 inherit F_CLEAN_UP;
 
-static string id;
-static mapping spam_check = ([]);
+nosave string id;
+nosave mapping spam_check = ([]);
 
 private void create() { seteuid(getuid()); }
 
@@ -51,7 +51,7 @@ receive(mapping info)
     if( spam_check[mid]==msg ) return;
 	spam_check[mid] = msg;
 #endif
-    
+
     id = info["USRNAME"] + "@" + info["NAME"];
 
     // 若有 CNAME，使用擴充格式。

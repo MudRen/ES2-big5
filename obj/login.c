@@ -22,8 +22,8 @@ inherit F_SAVE;
 
 void update_age();
 
-static object my_body;
-static int last_age_set;
+nosave object my_body;
+nosave int last_age_set;
 
 string password;
 string email;
@@ -76,7 +76,7 @@ time_out()
 	write("您花在連線進入手續的時間太久了﹐下次想好再來吧。\n");
 
     // If we go linkdead before we finish character creation, destruct
-    // the body as well. 
+    // the body as well.
     if( objectp(body = query_temp("temp_body"))
     &&	!userp(body) )
         destruct(body);
@@ -175,7 +175,7 @@ query(string prop, int raw)
 	break;
     }
 
-    /* 保護指標語意(pointer semantic)型別的資料 */    
+    /* 保護指標語意(pointer semantic)型別的資料 */
     if( mapp(data) || arrayp(data) ) USER_PROTECT();
 
     return data;

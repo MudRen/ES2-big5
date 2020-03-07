@@ -12,8 +12,8 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-#pragma optimize
-#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #include <command.h>
 #include <login.h>
@@ -85,7 +85,7 @@ int help()
         write(@TEXT
 指令格式：okip [-a|-d ] [IP:IP:...]
 
-這個指令可以設定你的來源位址, 最多可設定十組常用的位址, 當來源位
+這個指令可以設定你的來源位址, 最多可設定十組常用的位址, 當來源位
 址不符時, 系統將拒絕該連線要求, 以防止被來自這些位址外的不明人士
 所侵入。設定位址時請小心設定, 若是設錯而造成不能連線進入時, 請備
 妥下列資料mail給arch級以上巫師處理:

@@ -12,8 +12,8 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-//#pragma optimize
-#pragma save_binary
+//// #pragma optimize
+// #pragma save_binary
 
 #include <room.h>
 #include <ansi.h>
@@ -37,7 +37,7 @@ int main(object me, string arg)
 
     if( arg ) {
         if( (obj = present(arg, me))
-        ||    (obj = present(arg, environment(me)))) 
+        ||    (obj = present(arg, environment(me))))
             if( obj->is_character() ) result = look_living(me, obj);
             else result = look_item(me, obj);
     }
@@ -83,14 +83,14 @@ int look_living(object me, object obj)
             str += break_chinese_string(
                 sprintf("%s%s，%s看起來%s。",
                     obj->name(), RACE_D(race)->query_appearance(obj),
-                    pro, (age > 10) ? ("約" + chinese_number(age / 10 * 10) + "多歲") : "不到十歲"),
+                    pro, (age > 10) ? ("約" + chinese_number(age / 10 * 10) + "多歲") : "不到十歲"),
                 70 ) + "\n";
         else
             str += break_chinese_string(
                 sprintf("%s屬於%s族，%s%s，%s看起來%s。",
                     obj->name(), to_chinese(race),
                     pro, RACE_D(race)->query_appearance(obj),
-                    pro, (age > 10) ? ("約" + chinese_number(age / 10 * 10) + "多歲") : "不到十歲"),
+                    pro, (age > 10) ? ("約" + chinese_number(age / 10 * 10) + "多歲") : "不到十歲"),
                 70 ) + "\n";
     }
 
@@ -127,9 +127,9 @@ int help (object me)
 {
     write(@HELP
 指令格式: look [<物品>|<生物>|<方向>]
- 
+
 這個指令讓你查看你所在的環境、某件物品、生物、或是方向。
- 
+
 HELP
 );
     return 1;

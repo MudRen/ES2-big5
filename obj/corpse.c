@@ -14,8 +14,8 @@
 
 inherit ITEM;
 
-static int decayed = 0;
-static int decay_interval = 120;
+nosave int decayed = 0;
+nosave int decay_interval = 120;
 
 void create()
 {

@@ -28,12 +28,12 @@ inherit F_DBASE;
 inherit F_SAVE;
 #endif	/* SAVE_MUDLIST */
 
-static int udp_port;
-static int udp_socket;
+nosave int udp_port;
+nosave int udp_socket;
 
-static string my_address;
+nosave string my_address;
 
-static mapping event_handler = ([
+nosave mapping event_handler = ([
     "mudlist_q":	({ INTERMUD_SERVICE("mudlist"), "receive_request" }),
     "mudlist_a":	({ INTERMUD_SERVICE("mudlist"), "receive_answer" }),
     "ping_q":		({ INTERMUD_SERVICE("ping"), "receive_request" }),

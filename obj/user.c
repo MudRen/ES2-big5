@@ -30,8 +30,8 @@ private void user_dump(int type);
 
 // variables
 
-static object my_link;
-static int last_age_set;
+nosave object my_link;
+nosave int last_age_set;
 
 // implementations
 
@@ -164,7 +164,7 @@ user_dump(int type)
     case DUMP_IDLE:
 	// wiz don't get kicked out (Elon 10-17-95)
 	if (wizardp(this_object())) return;
-	tell_object( this_object(), "對不起﹐您已經發呆超過 " 
+	tell_object( this_object(), "對不起﹐您已經發呆超過 "
 	    + IDLE_TIMEOUT/60 + " 分鐘了﹐請下次再來。\n");
 	tell_room( environment(), "一陣風吹來﹐將發呆中的" + query("name")
 	    + "化為一堆飛灰﹐消失了。\n", ({this_object()}));
@@ -203,7 +203,7 @@ net_dead()
 	tell_room(environment(), "時空一陣波動, " + query("name") +
 	    "瞬間由這個世界消失...\n");
 	LOGIN_D->net_dead(this_object());
-    } else 
+    } else
 	command("quit");
 }
 
@@ -223,9 +223,9 @@ reconnect()
 	move(last_loc);
 }
 
-static string last_cmd;
-static int last_cmd_time;
-static int last_cmd_count;
+nosave string last_cmd;
+nosave int last_cmd_time;
+nosave int last_cmd_count;
 
 string
 process_input(string str)
@@ -271,7 +271,7 @@ win_fight(object opponent)
 /***********************************************************************
                             USER DATA PROTECTIONS
  ***********************************************************************/
- 
+
 nomask mixed
 set(string prop, mixed data)
 {
@@ -318,7 +318,7 @@ advance_skill(string skill, int amount)
 nomask void
 set_learn(string skill, int lrn)
 {
-    USER_PROTECT();    
+    USER_PROTECT();
     ::set_learn(skill, lrn);
 }
 

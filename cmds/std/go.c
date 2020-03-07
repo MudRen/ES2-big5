@@ -12,8 +12,8 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-#pragma optimize
-#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 inherit F_CLEAN_UP;
 
@@ -90,7 +90,7 @@ int main(object me, string arg)
 	write("這一個方向的出口有問題﹐請通知巫師處理。\n");
 	return 1;
     }
-    
+
     // Check for mudlib apply valid_leave()
     if( function_exists("valid_leave", env) && !env->valid_leave(me, arg) )
 	return 0;
@@ -150,9 +150,9 @@ int help(object me)
 {
     write(@HELP
 指令格式 : go <方向>
- 
+
 讓你往指定的方向移動。
- 
+
 HELP
     );
     return 1;

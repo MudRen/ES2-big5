@@ -12,7 +12,7 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-#pragma save_binary
+// #pragma save_binary
 
 inherit F_CLEAN_UP;
 inherit F_SAVE;
@@ -56,7 +56,7 @@ mapping query_daemons() { return daemons; }
 int register_race_daemon(string race)
 {
     if( !previous_object() || clonep(previous_object()) ) return 0;
-    
+
     if( !undefinedp(daemons["race:"+race])
     &&	base_name(previous_object()) != daemons["race:"+race]
     &&	geteuid(previous_object()) != MUDLIB_UID

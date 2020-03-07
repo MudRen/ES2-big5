@@ -17,7 +17,7 @@
 // by Annihilator@Eastern.Stories 09-27-93
 // adapted for ES2-lib 01-18-95
 
-#pragma save_binary
+// #pragma save_binary
 
 #include <localtime.h>
 
@@ -26,10 +26,10 @@
 inherit F_CLEAN_UP;
 inherit F_SAVE;
 
-static string *c_digit = ({ "零","十","百","千","萬","億","兆" });
-static string *c_num = ({"零","一","二","三","四","五","六","七","八","九","十"});
-static string *sym_tien = ({ "甲","乙","丙","丁","戊","己","庚","辛","壬","癸" });
-static string *sym_dee = ({ "子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥" });
+nosave string *c_digit = ({ "零","十","百","千","萬","億","兆" });
+nosave string *c_num = ({"零","一","二","三","四","五","六","七","八","九","十"});
+nosave string *sym_tien = ({ "甲","乙","丙","丁","戊","己","庚","辛","壬","癸" });
+nosave string *sym_dee = ({ "子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥" });
 
 mapping dict = ([]);
 
@@ -164,4 +164,3 @@ string chinese_period(int t)
 
     return time;
 }
-

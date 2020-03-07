@@ -16,7 +16,7 @@
 
 #define TIME_TICK (time()*60)
 
-static int current_day_phase;
+nosave int current_day_phase;
 mapping *day_phase;
 
 string *weather_msg = ({
@@ -58,7 +58,7 @@ init_day_phase()
     current_day_phase = (i==0? sizeof(day_phase)-1: i - 1);
 
     // Since in our time scale, 1 minute == 1 second in RL, so we don't need
-    // any conversion before using this number as call_out dalay, if you 
+    // any conversion before using this number as call_out dalay, if you
     // changed the time scale, be sure to convert it.
 
     call_out("update_day_phase",

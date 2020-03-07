@@ -14,14 +14,14 @@
 
 // Created by Annihilator (11/07/94)
 
-#pragma save_binary
+// #pragma save_binary
 
 #include <origin.h>
 
 inherit F_CLEAN_UP;
 
-static mapping cache = ([]);
-static string *cached_path = ({});
+nosave mapping cache = ([]);
+nosave string *cached_path = ({});
 
 private void
 create()

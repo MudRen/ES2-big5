@@ -23,7 +23,7 @@ varargs int is_fighting(object);
 void clean_up_enemy();
 void reset_time_unit();
 
-static object leader, *team;
+nosave object leader, *team;
 
 int set_leader(object ob)
 {
@@ -86,7 +86,7 @@ dismiss_team()
     object member;
 
     if( !arrayp(team) ) return 0;
-    
+
     if( team[0]==this_object() ) {
 	/* 這個物件是領隊：解散整個隊伍 */
 	foreach(member in team) member->set_team(0);
@@ -106,4 +106,3 @@ query_team()
 {
     return team;
 }
-

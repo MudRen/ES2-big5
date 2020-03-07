@@ -12,7 +12,7 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-#define MUD_NAME		"天朝帝國"
+// #define MUD_NAME		"天朝帝國"
 #define MUD_NAME_INTERMUD	"Celestial Empire"
 #define MUD_NAME_ABBR		"es2"
 #define MUD_HOSTNAME		"es2.muds.net"
@@ -115,4 +115,3 @@
 #define F_STUDY		"/feature/study.c"
 #define F_TREEMAP	"/feature/treemap.c"
 #define F_UNIQUE	"/feature/unique.c"
-

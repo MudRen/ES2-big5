@@ -1,6 +1,6 @@
 // room.c
 
-#pragma save_binary
+// #pragma save_binary
 
 #include <ansi.h>
 #include <dbase.h>
@@ -9,8 +9,8 @@
 inherit F_DBASE;
 inherit F_CLEAN_UP;
 
-static mapping doors;
-static mapping guards;
+nosave mapping doors;
+nosave mapping guards;
 
 int receive_object(object ob, int from_inventory) { return 1; }
 
@@ -95,7 +95,7 @@ void reset()
 
 	ob_list = query("objects");
 	if( mapp(ob_list) ) {
-	
+
 		if( !mapp(ob = query_temp("objects")) )
 			ob = allocate_mapping(sizeof(ob_list));
 		inv -= values(ob);
@@ -196,12 +196,12 @@ varargs int lock_door(string dir, string key, int from_other_side)
 
 	if( !mapp(doors) || undefinedp(doors[dir]) )
 		return notify_fail("這個方向沒有門。\n");
-	if( !doors[dir]["lock"] ) return notify_fail("這個"+ doors[dir]["name"] 
+	if( !doors[dir]["lock"] ) return notify_fail("這個"+ doors[dir]["name"]
 		+ "上面沒有鎖。\n");
 	if( doors[dir]["lock"] != key )
 		return notify_fail("你的鑰匙不對。\n");
 
-	if( doors[dir]["status"] & DOOR_LOCKED ) 
+	if( doors[dir]["status"] & DOOR_LOCKED )
 		return notify_fail(doors[dir]["name"] + "已經鎖上了。\n");
 
 	exits = query("exits");
@@ -225,12 +225,12 @@ varargs int unlock_door(string dir, string key, int from_other_side)
 
 	if( !mapp(doors) || undefinedp(doors[dir]) )
 		return notify_fail("這個方向沒有門。\n");
-	if( !doors[dir]["lock"] ) return notify_fail("這個"+ doors[dir]["name"] 
+	if( !doors[dir]["lock"] ) return notify_fail("這個"+ doors[dir]["name"]
 		+ "上面沒有鎖。\n");
 	if( doors[dir]["lock"] != key )
 		return notify_fail("你的鑰匙不對。\n");
 
-	if( !(doors[dir]["status"] & DOOR_LOCKED) ) 
+	if( !(doors[dir]["status"] & DOOR_LOCKED) )
 		return notify_fail(doors[dir]["name"] + "並沒有上鎖。\n");
 
 	exits = query("exits");
@@ -351,7 +351,7 @@ varargs int do_look(object me, string arg)
 
 	if( mapp(exits = query("exits")) )
 		dirs = keys(exits);
-	
+
 	// Check for exits with door.
 	if( mapp(doors) )
 		dirs = filter(dirs, (: undefinedp(doors[$1]) || (doors[$1]["status"] & DOOR_CLOSED)==0 :));

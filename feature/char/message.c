@@ -17,7 +17,7 @@
 
 #define MAX_MSG_BUFFER 500
 
-static string *msg_buffer = ({});
+nosave string *msg_buffer = ({});
 
 void
 receive_message(string msgclass, string msg)
@@ -48,7 +48,7 @@ receive_message(string msgclass, string msg)
 	break;
     default:
 	if( this_player()
-	&&  (this_player() != this_object()) 
+	&&  (this_player() != this_object())
 	&&  !this_player()->visible(this_object()) )
 	    return;
     }

@@ -16,7 +16,7 @@
 
 inherit F_CLEAN_UP;
 
-static string *default_search = DEFAULT_SEARCH_PATHS;
+nosave string *default_search = DEFAULT_SEARCH_PATHS;
 
 private void create() { seteuid(getuid()); }
 
@@ -45,14 +45,14 @@ int main(object me, string arg)
     search = DEFAULT_SEARCH_PATHS;
     if( wizardp(me) )
         search += WIZARD_SEARCH_PATHS;
-        
+
     foreach(string path in search)
     {
 	if( file_size(path + arg) < 0 ) continue;
 	if( wizardp(me) )
 	    write("說明文件：" + path + arg
 		+ "\n---------------------------------------------------------------------\n");
-	me->start_more( read_file(path + arg) ); 
+	me->start_more( read_file(path + arg) );
 	return 1;
     }
 
@@ -72,7 +72,7 @@ HELP
     if( wizardp(me) )
         write(@HELP
 本指令會先搜尋主題是否為 command, ( 若呼叫者為巫師, 則接著搜尋 /doc/help.h
-中的 WIZARD_SEARCH_PATHS ), 再搜尋 DEFAULT_SEARCH_PATHS。 
+中的 WIZARD_SEARCH_PATHS ), 再搜尋 DEFAULT_SEARCH_PATHS。
 若有同檔名之文件處於這些搜尋位置中, 則位於後搜路徑者將不被搜尋, 即只看到先
 前搜尋之 doc, 編製新文件時請留意。
 HELP

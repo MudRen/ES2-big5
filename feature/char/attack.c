@@ -20,13 +20,13 @@
 
 #define MAX_OPPONENT    4
 
-static object charge_target = 0;
-static object guarding = 0, *guarded = ({});
-static object *enemy = ({});
-static mapping killer = ([]);
-static int attack_patience;
+nosave object charge_target = 0;
+nosave object guarding = 0, *guarded = ({});
+nosave object *enemy = ({});
+nosave mapping killer = ([]);
+nosave int attack_patience;
 
-static object current_target;
+nosave object current_target;
 
 void fight_ob(object ob);
 void kill_ob(object ob);
@@ -82,7 +82,7 @@ void remove_guard(object ob)
     if( member_array(ob, guarded) < 0 ) return;
 
     guarded -= ({ ob, 0 });
-    tell_object(this_object(), HIY + ob->name() + "不再保護你了。\n"+ 
+    tell_object(this_object(), HIY + ob->name() + "不再保護你了。\n"+
 	NOR);
 }
 
@@ -247,7 +247,7 @@ void remove_all_killer()
 
     // We MUST stop killing anyone before asking them to forget us.
     killer = ([]);
-        
+
     // Call all enemies seeing we die stop killing us. They have done enough.
     enemy->remove_killer(this_object());
     enemy = ({});

@@ -12,7 +12,7 @@
     primary author of ES2 mudlib: Annihilator <annihilator@muds.net>
 */
 
-#pragma save_binary
+// #pragma save_binary
 
 #include <login.h>
 #include <action.h>
@@ -45,7 +45,7 @@ inherit F_TEAM;
 
 // variables
 
-static int tick;
+nosave int tick;
 
 // implementations
 
@@ -85,7 +85,7 @@ setup()
  * 這個函式的內容。
  */
 
-static void
+protected void
 heart_beat()
 {
     mapping f;
@@ -158,7 +158,7 @@ int notify_stat(mapping flag)
      */
     default_dir=query("wimpy_dir");
 
-    if( stringp(default_dir) && member_array(default_dir, dirs) 
+    if( stringp(default_dir) && member_array(default_dir, dirs)
     &&	command("go " + default_dir) )
 	return 1;
 
@@ -353,7 +353,7 @@ short(int raw)
 
     if( raw ) return str;
 
-    /* 附加的短敘述 */        
+    /* 附加的短敘述 */
     if(	arrayp(applied = query_temp("apply/short"))
     &&	sizeof(applied)
     &&	stringp(applied[<1]) ) {
@@ -390,14 +390,14 @@ long(int raw)
     string str, *applied;
 
     if( !raw
-    &&	arrayp(applied = query_temp("apply/long")) 
+    &&	arrayp(applied = query_temp("apply/long"))
     &&	sizeof(applied)
     &&	stringp(applied[<1]) )
 	str = applied[<1];
     else str = ::long(raw);
 
     if( !raw
-    &&	arrayp(applied = query_temp("apply/description")) 
+    &&	arrayp(applied = query_temp("apply/description"))
     &&	sizeof(applied)
     &&	stringp(applied[<1]) ) {
 	str += implode(applied, "\n");

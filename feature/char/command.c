@@ -19,7 +19,7 @@
 #include <login.h>
 
 /* 指令搜尋路徑。 */
-static string *path = ({});
+nosave string *path = ({});
 
 string
 find_command(string verb)
@@ -27,7 +27,7 @@ find_command(string verb)
     return (string)COMMAND_D->find_command(verb, path);
 }
 
-static nomask int
+protected nomask int
 command_hook(string arg)
 {
     string verb, file;
@@ -45,7 +45,7 @@ command_hook(string arg)
     verb = query_verb();
 
     /* 嘗試指令 */
-    if( stringp(file = find_command(verb)) 
+    if( stringp(file = find_command(verb))
     &&	call_other(file, "main", this_object(), arg));
 
     /* 嘗試情緒指令 */
@@ -70,7 +70,7 @@ command_hook(string arg)
     return 1;
 }
 
-static void
+protected void
 set_path(string *p)
 {
     path = p;
@@ -106,7 +106,7 @@ force_me(string cmd)
     return command( userp(this_object()) ? this_object()->process_input(cmd) : cmd );
 }
 
-static void
+protected void
 enable_player()
 {
     /* 設定生物名稱 */
@@ -165,7 +165,7 @@ cmd_update(string arg)
     return call_other("/cmds/wiz/update", "main", this_object(), arg);
 }
 
-static void
+protected void
 disable_player(string type)
 {
     if( origin()==ORIGIN_CALL_OTHER
@@ -176,4 +176,3 @@ disable_player(string type)
     set("disable_type", type);
     disable_commands();
 }
-
